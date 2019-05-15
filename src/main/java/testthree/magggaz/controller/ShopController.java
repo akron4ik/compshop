@@ -26,9 +26,11 @@ public class ShopController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView allDetails(){
         List<Part> parts = partService.allParts();
+        int count = partService.countOfComp();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("parts");
         modelAndView.addObject("partsList", parts);
+        modelAndView.addObject("countOf", count);
         return modelAndView;
     }
 

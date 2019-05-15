@@ -15,14 +15,12 @@
 <h2>Parts</h2>
 <table>
     <tr>
-        <th>id</th>
         <th>Название запчасти</th>
         <th>Необходимость</th>
         <th>Количество</th>
     </tr>
     <c:forEach var="part" items="${partsList}">
         <tr>
-            <td>${part.id}</td>
             <td>${part.name}</td>
             <td> <c:out value="${part.need == true ? 'Yes':'No'}"/></td>
             <td>${part.count}</td>
@@ -33,6 +31,8 @@
         </tr>
     </c:forEach>
 </table>
+<h2>Count</h2>
+<h1>"${countOf}"</h1>
 <h2>Add</h2>
 <c:url value="/add" var="add"/>
 <a href="${add}">Add new Part</a>

@@ -46,4 +46,10 @@ public class PartServiceImpl implements PartService {
     public Part getById(int id) {
         return partDAO.getById(id);
     }
+
+
+    @Transactional
+    public int countOfComp(){
+        return partDAO.countOfComp();
+    }
 }

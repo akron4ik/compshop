@@ -10,5 +10,6 @@ public interface PartDAO {
     void delete(Part part);
     void edit(Part part);
     Part getById(int id);
+    int countOfComp();
 
 }
