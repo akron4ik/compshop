@@ -29,16 +29,17 @@
     </c:if>
 
     <label for="name">Название запчасти</label>
-    <input type="text" name="name" id="name">
+    <input type="text" name="name" id="name" value="${part.name}">
     <label for="need">Необходимость</label>
     <c:if test="${!empty part.name}">
-        <input type="checkbox" name="need" id="need" value="${part.need}">
+        <input type="checkbox" name="need" id="need" value=true>
     </c:if>
     <c:if test="${empty part.name}">
-        <input type="checkbox" name="need" id="need" value="true">
+        <input type="checkbox" name="need" id="need" value=true>
+
     </c:if>
     <label for="count">Количество</label>
-    <input type="number" name="count" id="count">
+    <input type="number" name="count" id="count" value="${part.count}">
     <c:if test="${empty part.name}">
         <input type="submit" value="Add new part">
     </c:if>

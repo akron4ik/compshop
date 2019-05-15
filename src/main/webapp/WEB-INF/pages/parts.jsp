@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>PARTS</title>
+    <link href="<c:url value="/res/style.css"/>" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <h2>Parts</h2>
@@ -36,5 +37,13 @@
 <h2>Add</h2>
 <c:url value="/add" var="add"/>
 <a href="${add}">Add new Part</a>
+
+<c:forEach begin="1" end="${pagesCount}" step="1" varStatus="i">
+    <c:url value="/" var="url">
+        <c:param name="page" value="${i.index}"/>
+    </c:url>
+    <a href="${url}">${i.index}</a>
+</c:forEach>
+
 </body>
 </html>

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import testthree.magggaz.model.Part;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
+
 
 @Repository
 public class PartDAOImpl implements PartDAO {
@@ -20,9 +20,9 @@ public class PartDAOImpl implements PartDAO {
 
 
     @Override
-    public List<Part> allParts() {
+    public List<Part> allParts(int page) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Part").list();
+        return session.createQuery("from Part").setFirstResult(10*(page-1)).setMaxResults(10).list();
     }
 
     @Override
@@ -53,8 +53,8 @@ public class PartDAOImpl implements PartDAO {
     }
 
     @Override
-    public int countOfComp(){
-        List<Part> list = allParts();
+    public int countOfComp(int page){
+        List<Part> list = allParts(page);
         List<Integer> allTrueCount = new ArrayList<>();
         int countNull = 0;
         int count = 0;
@@ -72,5 +72,10 @@ public class PartDAOImpl implements PartDAO {
             count = Collections.min(allTrueCount);
             return count;
         }
+    }
+
+    public int partsCount(){
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("select count(*) from Part", Number.class).getSingleResult().intValue();
     }
 }

@@ -20,8 +20,8 @@ public class PartServiceImpl implements PartService {
     }
 
     @Transactional
-    public List<Part> allParts() {
-        return partDAO.allParts();
+    public List<Part> allParts(int page) {
+        return partDAO.allParts(page);
     }
 
     @Transactional
@@ -49,7 +49,13 @@ public class PartServiceImpl implements PartService {
 
 
     @Transactional
-    public int countOfComp(){
-        return partDAO.countOfComp();
+    public int countOfComp(int page){
+        return partDAO.countOfComp(page);
     }
+
+    @Transactional
+    public int partsCount(){
+        return partDAO.partsCount();
+    }
+
 }

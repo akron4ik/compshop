@@ -2,10 +2,7 @@ package testthree.magggaz.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import testthree.magggaz.model.Part;
 import testthree.magggaz.service.PartService;
@@ -17,20 +14,29 @@ import java.util.List;
 public class ShopController {
 
     private PartService partService = new PartServiceImpl();
+    private int page;
 
     @Autowired
     public void setPartService(PartService partService) {
         this.partService = partService;
     }
 
+
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView allDetails(){
-        List<Part> parts = partService.allParts();
-        int count = partService.countOfComp();
+    public ModelAndView allDetails(@RequestParam(defaultValue = "1") int page){
+        this.page = page;
+        List<Part> parts = partService.allParts(page);
+        int count = partService.countOfComp(page);
+        int partsCount = partService.partsCount();
+        int pageCount = (partsCount + 9)/10;
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("parts");
+        modelAndView.addObject("page",page);
         modelAndView.addObject("partsList", parts);
         modelAndView.addObject("countOf", count);
+        modelAndView.addObject("partsCount", partsCount);
+        modelAndView.addObject("pagesCount", pageCount);
         return modelAndView;
     }
 
@@ -45,7 +51,7 @@ public class ShopController {
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public ModelAndView editPart(@ModelAttribute("part") Part part) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/");
+        modelAndView.setViewName("redirect:/?page="+ this.page);
         partService.edit(part);
         return modelAndView;
     }
@@ -58,14 +64,14 @@ public class ShopController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ModelAndView addPart(@ModelAttribute("part") Part part){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/");
+        modelAndView.setViewName("redirect:/?page=" + this.page);
         partService.add(part);
         return modelAndView;
     }
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deletePart(@PathVariable("id") int id){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/");
+        modelAndView.setViewName("redirect:/?page="+ this.page);
         Part part = partService.getById(id);
         partService.delete(part);
         return modelAndView;
