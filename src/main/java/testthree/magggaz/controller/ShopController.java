@@ -27,7 +27,8 @@ public class ShopController {
     public ModelAndView allDetails(@RequestParam(defaultValue = "1") int page){
         this.page = page;
         List<Part> parts = partService.allParts(page);
-        int count = partService.countOfComp(page);
+
+        int count = partService.countOfComp();
         int partsCount = partService.partsCount();
         int pageCount = (partsCount + 9)/10;
         ModelAndView modelAndView = new ModelAndView();

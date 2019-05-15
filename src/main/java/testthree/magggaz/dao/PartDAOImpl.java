@@ -53,8 +53,11 @@ public class PartDAOImpl implements PartDAO {
     }
 
     @Override
-    public int countOfComp(int page){
-        List<Part> list = allParts(page);
+    public int countOfComp(){
+        Session session = sessionFactory.getCurrentSession();
+
+        List<Part> list = session.createQuery("from Part").list();
+
         List<Integer> allTrueCount = new ArrayList<>();
         int countNull = 0;
         int count = 0;

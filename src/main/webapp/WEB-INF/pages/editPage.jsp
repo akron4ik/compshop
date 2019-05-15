@@ -32,7 +32,12 @@
     <input type="text" name="name" id="name" value="${part.name}">
     <label for="need">Необходимость</label>
     <c:if test="${!empty part.name}">
-        <input type="checkbox" name="need" id="need" value=true>
+        <c:if test="${part.need == true}">
+        <input type="checkbox" name="need" id="need" checked>
+        </c:if>
+        <c:if test="${part.need == false}">
+            <input type="checkbox" name="need" id="need" >
+        </c:if>
     </c:if>
     <c:if test="${empty part.name}">
         <input type="checkbox" name="need" id="need" value=true>

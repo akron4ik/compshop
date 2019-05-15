@@ -49,8 +49,8 @@ public class PartServiceImpl implements PartService {
 
 
     @Transactional
-    public int countOfComp(int page){
-        return partDAO.countOfComp(page);
+    public int countOfComp(){
+        return partDAO.countOfComp();
     }
 
     @Transactional

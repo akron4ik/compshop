@@ -32,8 +32,14 @@
         </tr>
     </c:forEach>
 </table>
-<h2>Count</h2>
-<h1>"${countOf}"</h1>
+<table>
+    <tr>
+        <th>Можно собрать</th>
+        <th>${countOf}</th>
+        <th>Компьютеров</th>
+    </tr>
+</table>
+
 <h2>Add</h2>
 <c:url value="/add" var="add"/>
 <a href="${add}">Add new Part</a>
