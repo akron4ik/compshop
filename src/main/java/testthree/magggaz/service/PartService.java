@@ -10,6 +10,10 @@ public interface PartService {
     void delete(Part part);
     void edit(Part part);
     Part getById(int id);
+    Part getByName(List<Part> list,String name);
     int countOfComp();
     int partsCount();
+    List<Part> sortTrue(List<Part> list);
+    List<Part> sortFalse(List<Part> list);
+
 }

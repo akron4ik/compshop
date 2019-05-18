@@ -46,6 +46,8 @@ public class PartServiceImpl implements PartService {
     public Part getById(int id) {
         return partDAO.getById(id);
     }
+    @Transactional
+    public Part getByName(List<Part> list,String name) {return partDAO.getByName(list, name);}
 
 
     @Transactional
@@ -56,6 +58,15 @@ public class PartServiceImpl implements PartService {
     @Transactional
     public int partsCount(){
         return partDAO.partsCount();
+    }
+
+    @Transactional
+    public List<Part> sortTrue(List<Part> list){
+        return partDAO.sortTrue(list);
+    }
+    @Transactional
+    public List<Part> sortFalse(List<Part> list){
+        return partDAO.sortFalse(list);
     }
 
 }

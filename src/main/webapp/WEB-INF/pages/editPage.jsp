@@ -49,7 +49,7 @@
         <input type="submit" value="Add new part">
     </c:if>
     <c:if test="${!empty part.name}">
-    <input type="submit" value="Edit part">
+        <input type="submit" value="Edit part">
     </c:if>
 
 </form>

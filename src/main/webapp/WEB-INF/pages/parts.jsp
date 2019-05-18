@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>PARTS</title>
@@ -14,13 +15,25 @@
 </head>
 <body>
 <h2>Parts</h2>
+
+<form method="get" action="/check-part">
+    <input type="text" name="name" id="name" >
+    <button>Search</button>
+</form>
+
+
+
+
 <table>
+
+
     <tr>
         <th>Название запчасти</th>
         <th>Необходимость</th>
         <th>Количество</th>
     </tr>
-    <c:forEach var="part" items="${partsList}">
+    <c:forEach  var="part"  items="${partsList}">
+
         <tr>
             <td>${part.name}</td>
             <td> <c:out value="${part.need == true ? 'Yes':'No'}"/></td>
@@ -31,7 +44,12 @@
             </td>
         </tr>
     </c:forEach>
+
+
+
+
 </table>
+
 <table>
     <tr>
         <th>Можно собрать</th>

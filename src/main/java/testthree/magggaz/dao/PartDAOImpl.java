@@ -51,6 +51,14 @@ public class PartDAOImpl implements PartDAO {
        Session session = sessionFactory.getCurrentSession();
        return session.get(Part.class, id);
     }
+    @Override
+    public Part getByName(List<Part> list, String name){
+        Part part = null;
+        for (Part p: list) {
+            if(p.getName().equals(name)) part = p;
+        }
+        return part;
+    }
 
     @Override
     public int countOfComp(){
@@ -81,4 +89,23 @@ public class PartDAOImpl implements PartDAO {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("select count(*) from Part", Number.class).getSingleResult().intValue();
     }
+
+    public List<Part> sortTrue(List<Part> partsOnPage){
+        List<Part> listTrue = new ArrayList<>();
+        for (Part p: partsOnPage) {
+            if(p.isNeed())listTrue.add(p);
+        }
+        return listTrue;
+
+    }
+
+    public List<Part> sortFalse(List<Part> partsOnPage){
+        List<Part> listFalse = new ArrayList<>();
+        for (Part p: partsOnPage) {
+            if(!p.isNeed())listFalse.add(p);
+        }
+        return listFalse;
+
+    }
+
 }
