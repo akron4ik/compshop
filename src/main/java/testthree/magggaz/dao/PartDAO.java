@@ -13,7 +13,7 @@ public interface PartDAO {
     Part getByName(List<Part> list, String name);
     int countOfComp();
     int partsCount();
-    List<Part> sortTrue(List<Part> list);
-    List<Part> sortFalse(List<Part> list);
+    List<Part>sorting(List<Part> partsOnPage, int flag);
+
 
 }

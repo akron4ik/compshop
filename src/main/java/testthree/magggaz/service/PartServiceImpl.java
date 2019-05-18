@@ -61,12 +61,9 @@ public class PartServiceImpl implements PartService {
     }
 
     @Transactional
-    public List<Part> sortTrue(List<Part> list){
-        return partDAO.sortTrue(list);
+    public List<Part> sorting(List<Part> list, int flag){
+        return partDAO.sorting(list, flag);
     }
-    @Transactional
-    public List<Part> sortFalse(List<Part> list){
-        return partDAO.sortFalse(list);
-    }
+
 
 }

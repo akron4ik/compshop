@@ -90,21 +90,18 @@ public class PartDAOImpl implements PartDAO {
         return session.createQuery("select count(*) from Part", Number.class).getSingleResult().intValue();
     }
 
-    public List<Part> sortTrue(List<Part> partsOnPage){
+    public List<Part> sorting(List<Part> partsOnPage, int flag){
         List<Part> listTrue = new ArrayList<>();
         for (Part p: partsOnPage) {
-            if(p.isNeed())listTrue.add(p);
+            if(flag == 2) {
+                if(p.isNeed())listTrue.add(p);
+            }
+            else if(flag == 3){
+                if(!p.isNeed())listTrue.add(p);
+            }
+            else listTrue.add(p);
         }
         return listTrue;
-
-    }
-
-    public List<Part> sortFalse(List<Part> partsOnPage){
-        List<Part> listFalse = new ArrayList<>();
-        for (Part p: partsOnPage) {
-            if(!p.isNeed())listFalse.add(p);
-        }
-        return listFalse;
 
     }
 

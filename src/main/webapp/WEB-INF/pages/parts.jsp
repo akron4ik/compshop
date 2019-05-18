@@ -21,6 +21,21 @@
     <button>Search</button>
 </form>
 
+<%--<form method="get" action="/sort">
+    <input type="number" name="sort" id="sort" >
+    <button>Sorting</button>
+</form>--%>
+
+    <form method="get" action="/sort">
+        <p><select name="sort" size="1">
+            <option value="1">All</option>
+            <option value="2">True</option>
+            <option value="3">False</option>
+        </select>
+            <input type="submit" value="Sorting"></p>
+    </form>
+
+
 
 
 

@@ -29,8 +29,6 @@ public class ShopController {
     public ModelAndView allDetails(@RequestParam(defaultValue = "1") int page){
         this.page = page;
         List<Part> parts = partService.allParts(page);
-        List<Part> parttrue = partService.sortTrue(parts);
-        List<Part> partFalse = partService.sortFalse(parts);
         int count = partService.countOfComp();
         int partsCount = partService.partsCount();
         int pageCount = (partsCount + 9)/10;
@@ -41,8 +39,7 @@ public class ShopController {
         modelAndView.addObject("countOf", count);
         modelAndView.addObject("partsCount", partsCount);
         modelAndView.addObject("pagesCount", pageCount);
-        modelAndView.addObject("partsTrue", parttrue);
-        modelAndView.addObject("partsFalse", partFalse);
+
         return modelAndView;
     }
     @RequestMapping(value = "/check-part")
@@ -58,18 +55,17 @@ public class ShopController {
         return modelAndView;
     }
 
-    /*@RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/sort")
     public ModelAndView sortPage(@RequestParam("sort") int sort){
-        this.sort = sort;
         List<Part> parts = partService.allParts(page);
-        if(sort == 1) parts = partService.allParts(page);
-        else if( sort == 2) parts = partService.sortTrue(parts);
-        else parts = partService.sortFalse(parts);
+        List<Part> sortParts = partService.sorting(parts, sort);
+
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("parts");
-        modelAndView.addObject("sortPart", parts);
+        modelAndView.setViewName("sorting");
+        modelAndView.addObject("sort",sort);
+        modelAndView.addObject("sortParts", sortParts);
         return modelAndView;
-    }*/
+    }
 
 
 
