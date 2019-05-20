@@ -56,13 +56,22 @@ public class PartServiceImpl implements PartService {
     }
 
     @Transactional
-    public int partsCount(){
-        return partDAO.partsCount();
+    public int partsCount(int flag){
+        return partDAO.partsCount(flag);
     }
 
     @Transactional
     public List<Part> sorting(List<Part> list, int flag){
         return partDAO.sorting(list, flag);
+    }
+
+    @Transactional
+    public List<Part> absolutAllParts(int page, int flag){
+        return partDAO.absolutAllParts(page, flag);
+    }
+    @Transactional
+    public List<Part> allDetails(){
+        return partDAO.allDetails();
     }
 
 

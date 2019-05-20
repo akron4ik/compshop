@@ -21,7 +21,7 @@
     <button>Search</button>
 </form>
 
-    <form method="get" action="/">
+    <form method="get" action="/sort">
         <p><select name="sort" size="1">
             <option value="1">All</option>
             <option value="2">True</option>

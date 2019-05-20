@@ -12,13 +12,23 @@
     <title>Sorting</title>
 </head>
 <body>
+
+<form method="get" action="/sort">
+    <p><select name="sort" size="1">
+        <option value="1" >All</option>
+        <option value="2">True</option>
+        <option value="3">False</option>
+    </select>
+        <input type="submit" value="Sorting"></p>
+</form>
+
 <table>
     <tr>
         <th>Название</th>
         <th>Необходимость</th>
         <th>Количество</th>
     </tr>
-<c:forEach var="part" items="${sortParts}">
+    <c:forEach var="part" items="${soPa}">
     <tr>
         <td>${part.name}</td>
         <td> <c:out value="${part.need == true ? 'Yes':'No'}"/></td>
@@ -30,5 +40,28 @@
     </tr>
 </c:forEach>
 </table>
+
+<c:forEach begin="1" end="${pagCount}" step="1" varStatus="i">
+    <c:if test="${sort == 2}">
+    <c:url value="/sort?sort=2" var="url">
+        <c:param name="page" value="${i.index}"/>
+    </c:url>
+    <a href="${url}">${i.index}</a>
+    </c:if>
+    <c:if test="${sort == 1}">
+        <c:url value="/sort?sort=1" var="url">
+            <c:param name="page" value="${i.index}"/>
+        </c:url>
+        <a href="${url}">${i.index}</a>
+    </c:if>
+    <c:if test="${sort == 3}">
+        <c:url value="/sort?sort=3" var="url">
+            <c:param name="page" value="${i.index}"/>
+        </c:url>
+        <a href="${url}">${i.index}</a>
+    </c:if>
+
+
+</c:forEach>
 </body>
 </html>

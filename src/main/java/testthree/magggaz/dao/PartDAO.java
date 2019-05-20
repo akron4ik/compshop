@@ -12,8 +12,10 @@ public interface PartDAO {
     Part getById(int id);
     Part getByName(List<Part> list, String name);
     int countOfComp();
-    int partsCount();
+    int partsCount(int flag);
     List<Part>sorting(List<Part> partsOnPage, int flag);
+    List<Part> absolutAllParts(int page, int flag);
+    List<Part> allDetails();
 
 
 }

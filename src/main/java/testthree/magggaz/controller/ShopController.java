@@ -16,6 +16,7 @@ public class ShopController {
 
     private PartService partService = new PartServiceImpl();
     private int page;
+    private int sort;
 
 
     @Autowired
@@ -25,28 +26,44 @@ public class ShopController {
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView allDetails(@RequestParam(defaultValue = "1") int page, @RequestParam(name = "sort", defaultValue = "1") int sort){
+    public ModelAndView allDetails(@RequestParam(defaultValue = "1") int page){
         this.page = page;
-        List<Part> parts = partService.allParts(page);
+        List<Part> absolAllParts = partService.absolutAllParts(page, 1);
         int count = partService.countOfComp();
-        int partsCount = partService.partsCount();
+        int partsCount = partService.partsCount(1);
         int pageCount = (partsCount + 9)/10;
-        List<Part> sortParts = partService.sorting(parts, sort);
+        List<Part> sortParts = partService.sorting(absolAllParts, 1);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("parts");
         modelAndView.addObject("page",page);
-        modelAndView.addObject("partsList", parts);
         modelAndView.addObject("countOf", count);
         modelAndView.addObject("partsCount", partsCount);
         modelAndView.addObject("pagesCount", pageCount);
-        modelAndView.addObject("sort",sort);
         modelAndView.addObject("sortParts", sortParts);
         return modelAndView;
     }
+
+    @RequestMapping(value = "/sort", method = RequestMethod.GET)
+    public ModelAndView sortDetails(@RequestParam(defaultValue = "1") int page, @RequestParam(name = "sort") int sort){
+        this.sort = sort;
+        ModelAndView modelAndView = new ModelAndView();
+        List<Part> all = partService.absolutAllParts(page, this.sort);
+        int partCount = partService.partsCount(this.sort);
+        int pagCount = (partCount + 9)/10;
+        List<Part> soPa = partService.sorting(all,this.sort);
+        modelAndView.setViewName("sorting");
+        modelAndView.addObject("sort",this.sort);
+        modelAndView.addObject("pages", page);
+        modelAndView.addObject("partCount", partCount);
+        modelAndView.addObject("pagCount", pagCount);
+        modelAndView.addObject("soPa", soPa);
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/check-part")
     public ModelAndView checkPart(@ModelAttribute("name") String name){
         ModelAndView modelAndView = new ModelAndView();
-        List<Part> list = partService.allParts(page);
+        List<Part> list = partService.allDetails();
         Part part = partService.getByName(list, name);
         modelAndView.setViewName("search");
         modelAndView.addObject("name", name);
