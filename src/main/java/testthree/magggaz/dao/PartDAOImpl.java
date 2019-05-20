@@ -91,6 +91,8 @@ public class PartDAOImpl implements PartDAO {
     }
 
     public List<Part> sorting(List<Part> partsOnPage, int flag){
+
+
         List<Part> listTrue = new ArrayList<>();
         for (Part p: partsOnPage) {
             if(flag == 2) {

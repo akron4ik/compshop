@@ -21,12 +21,7 @@
     <button>Search</button>
 </form>
 
-<%--<form method="get" action="/sort">
-    <input type="number" name="sort" id="sort" >
-    <button>Sorting</button>
-</form>--%>
-
-    <form method="get" action="/sort">
+    <form method="get" action="/">
         <p><select name="sort" size="1">
             <option value="1">All</option>
             <option value="2">True</option>
@@ -47,7 +42,7 @@
         <th>Необходимость</th>
         <th>Количество</th>
     </tr>
-    <c:forEach  var="part"  items="${partsList}">
+    <c:forEach  var="part"  items="${sortParts}">
 
         <tr>
             <td>${part.name}</td>

@@ -24,14 +24,14 @@ public class ShopController {
     }
 
 
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView allDetails(@RequestParam(defaultValue = "1") int page){
+    public ModelAndView allDetails(@RequestParam(defaultValue = "1") int page, @RequestParam(name = "sort", defaultValue = "1") int sort){
         this.page = page;
         List<Part> parts = partService.allParts(page);
         int count = partService.countOfComp();
         int partsCount = partService.partsCount();
         int pageCount = (partsCount + 9)/10;
+        List<Part> sortParts = partService.sorting(parts, sort);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("parts");
         modelAndView.addObject("page",page);
@@ -39,7 +39,8 @@ public class ShopController {
         modelAndView.addObject("countOf", count);
         modelAndView.addObject("partsCount", partsCount);
         modelAndView.addObject("pagesCount", pageCount);
-
+        modelAndView.addObject("sort",sort);
+        modelAndView.addObject("sortParts", sortParts);
         return modelAndView;
     }
     @RequestMapping(value = "/check-part")
@@ -47,28 +48,11 @@ public class ShopController {
         ModelAndView modelAndView = new ModelAndView();
         List<Part> list = partService.allParts(page);
         Part part = partService.getByName(list, name);
-        //Part part = partService.getById(id);
         modelAndView.setViewName("search");
-        //modelAndView.addObject("id", id);
         modelAndView.addObject("name", name);
         modelAndView.addObject("part", part);
         return modelAndView;
     }
-
-    @RequestMapping(value = "/sort")
-    public ModelAndView sortPage(@RequestParam("sort") int sort){
-        List<Part> parts = partService.allParts(page);
-        List<Part> sortParts = partService.sorting(parts, sort);
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("sorting");
-        modelAndView.addObject("sort",sort);
-        modelAndView.addObject("sortParts", sortParts);
-        return modelAndView;
-    }
-
-
-
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public ModelAndView editPage(@PathVariable("id")int id){
         Part part = partService.getById(id);
