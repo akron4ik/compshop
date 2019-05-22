@@ -10,26 +10,35 @@
 <html>
 <head>
     <title>Запчасть</title>
+    <link href="<c:url value="/res/style.css"/>" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 
 <table>
+    <caption>Результат поиска</caption>
+    <c:if test="${empty part.name}">
+        <caption>К сожалению такой детали нет!</caption>
+    </c:if>
+
+<c:if test="${!empty part.name}">
     <tr>
         <th>Название</th>
         <th>Необходимость</th>
         <th>Количество</th>
     </tr>
-
-
-        <tr>
+</c:if>
+    <tr>
+        <c:if test="${!empty part.name}">
             <td>${part.name}</td>
-            <td> <c:out value="${part.need == true ? 'Yes':'No'}"/></td>
+            <td> <c:out value="${part.need == true ? 'Да':'Нет'}"/></td>
             <td>${part.count}</td>
             <td>
                 <a href="/edit/${part.id}">edit</a>
                 <a href="/delete/${part.id}">delete</a>
             </td>
-        </tr>
+        </c:if>
+
+    </tr>
 
 </table>
 </body>

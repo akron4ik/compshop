@@ -10,25 +10,35 @@
 <html>
 <head>
     <title>Sorting</title>
+    <link href="<c:url value="/res/style.css"/>" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 
-<form method="get" action="/sort">
+<form method="get" action="/sort" class="sorting">
     <p><select name="sort" size="1">
-        <option value="1" >All</option>
-        <option value="2">True</option>
-        <option value="3">False</option>
+        <option value="1">Все комплектующие</option>
+        <option value="2">Необходимые комплектующие</option>
+        <option value="3">Необязательные комплектующие</option>
     </select>
-        <input type="submit" value="Sorting"></p>
+        <input type="submit" value="Сортировка"></p>
+</form>
+<form method="get" action="/check-part" class ="search">
+    <input type="text" name="name" id="name" placeholder="Video card">
+    <button>Поиск</button>
 </form>
 
+<c:url value="/add" var="add"/>
+<input class="adding" type="button" value = "Добавь запчасть" onclick='location.href="${add}"'>
+
 <table>
+    <caption>Таблица компьютерных комплектующих</caption>
     <tr>
-        <th>Название</th>
+        <th>Название запчасти</th>
         <th>Необходимость</th>
         <th>Количество</th>
+        <th>Действие</th>
     </tr>
-    <c:forEach var="part" items="${soPa}">
+    <c:forEach var="part" items="${sortingParts}">
     <tr>
         <td>${part.name}</td>
         <td> <c:out value="${part.need == true ? 'Yes':'No'}"/></td>
@@ -40,8 +50,24 @@
     </tr>
 </c:forEach>
 </table>
+<table>
+    <tr>
+        <th>Всего комплектующих</th>
+        <th>${partCount}</th>
+        <th>шт.</th>
+    </tr>
+</table>
 
-<c:forEach begin="1" end="${pagCount}" step="1" varStatus="i">
+
+<table>
+    <tr>
+        <th>Можно собрать</th>
+        <th>${countOfcomps}</th>
+        <th>Компьютеров</th>
+    </tr>
+</table>
+<div id="paging">
+<c:forEach begin="1" end="${pageCount}" step="1" varStatus="i">
     <c:if test="${sort == 2}">
     <c:url value="/sort?sort=2" var="url">
         <c:param name="page" value="${i.index}"/>
@@ -63,5 +89,6 @@
 
 
 </c:forEach>
+    </div>
 </body>
 </html>

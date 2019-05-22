@@ -15,6 +15,7 @@
     <c:if test="${!empty part.name}">
         <title>Edit</title>
     </c:if>
+    <link href="<c:url value="/res/style.css"/>" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <c:if test="${empty part.name}">
@@ -28,29 +29,45 @@
         <input type="hidden" name="id" value="${part.id}">
     </c:if>
 
-    <label for="name">Название запчасти</label>
-    <input type="text" name="name" id="name" value="${part.name}">
-    <label for="need">Необходимость</label>
+<table>
     <c:if test="${!empty part.name}">
-        <c:if test="${part.need == true}">
-        <input type="checkbox" name="need" id="need" checked>
-        </c:if>
-        <c:if test="${part.need == false}">
-            <input type="checkbox" name="need" id="need" >
-        </c:if>
+        <caption>Редактирование комплектующего</caption>
     </c:if>
     <c:if test="${empty part.name}">
-        <input type="checkbox" name="need" id="need" value=true>
+        <caption>Добавление комплетующего</caption>
+    </c:if>
+    <tr>
+        <th>Название</th>
+        <th>Необходимость</th>
+        <th>Количество</th>
+    </tr>
+    <tr>
 
-    </c:if>
-    <label for="count">Количество</label>
-    <input type="number" name="count" id="count" value="${part.count}">
-    <c:if test="${empty part.name}">
-        <input type="submit" value="Add new part">
-    </c:if>
-    <c:if test="${!empty part.name}">
-        <input type="submit" value="Edit part">
-    </c:if>
+            <td><input type="text" name="name" id="name" value="${part.name}"></td>
+            <td> <c:if test="${!empty part.name}">
+                <c:if test="${part.need == true}">
+                    <input type="checkbox" name="need" id="need" checked>
+                </c:if>
+                <c:if test="${part.need == false}">
+                    <input type="checkbox" name="need" id="need" >
+                </c:if>
+            </c:if>
+                <c:if test="${empty part.name}">
+                    <input type="checkbox" name="need" id="need" value=true>
+
+                </c:if></td>
+            <td><input type="number" name="count" id="count" value="${part.count}">
+                <c:if test="${empty part.name}">
+                    <input type="submit" value="Добавить">
+                </c:if>
+                <c:if test="${!empty part.name}">
+                    <input type="submit" value="Сохранить">
+                </c:if></td>
+
+
+
+    </tr>
+</table>
 
 </form>
 </body>

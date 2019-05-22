@@ -87,11 +87,6 @@ public class PartDAOImpl implements PartDAO {
         }
     }
 
-    /*public int partsCount(){
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("select count(*) from Part", Number.class).getSingleResult().intValue();
-    }*/
-
     public int partsCount(int flag){
         Session session = sessionFactory.getCurrentSession();
         List<Part> list = session.createQuery("from Part").list();
@@ -107,8 +102,6 @@ public class PartDAOImpl implements PartDAO {
 
     }
 
-
-
     public List<Part> sorting(List<Part> partsOnPage, int flag){
         List<Part> listTrue = new ArrayList<>();
         for (Part p: partsOnPage) {
@@ -120,7 +113,6 @@ public class PartDAOImpl implements PartDAO {
             }
             else listTrue.add(p);
         }
-
         return listTrue;
 
     }
@@ -128,21 +120,13 @@ public class PartDAOImpl implements PartDAO {
     public List<Part> absolutAllParts(int page, int flag){
         Session session = sessionFactory.getCurrentSession();
         List<Part> listNew = new ArrayList<>();
-        List<Part> list = session.createQuery("from Part").list();
         Criteria criteria = session.createCriteria(Part.class);
-        List<Part> trueParts = criteria.add(Restrictions.eq("need", true)).setFirstResult(10*(page-1)).setMaxResults(10).list();
-        //List<Part> falseParts = criteria.add(Restrictions.eq("need", false)).setFirstResult(10*(page-1)).setMaxResults(10).list();
-
         if(flag == 2) {
-                listNew = trueParts;
+            listNew = criteria.add(Restrictions.eq("need", true)).setFirstResult(10*(page-1)).setMaxResults(10).list();
         }
         else if(flag == 3){
-            for (Part p: list) {
-                if(!p.isNeed()) {
-                    listNew.add(p);
-                }
-            }
-            //listNew = falseParts;
+            listNew = criteria.add(Restrictions.eq("need", false)).setFirstResult(10*(page-1)).setMaxResults(10).list();
+
         }
         else listNew = session.createQuery("from Part").setFirstResult(10*(page-1)).setMaxResults(10).list();
 

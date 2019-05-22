@@ -1,11 +1,50 @@
 table {
     border-spacing: 0 10px;
-    font:  bold 100% Georgia, serif;
+    font: 100% Bradley Hand, cursive;
     margin: 40px auto;
-    text-shadow: 5px 5px 5px #3F3F7F;
-    background: #B1B9D9;
+    color: #438644;
+
+    background: #75b4c0;
     text-align: center;
     vertical-align: middle;
     width: 50%;
-    border: 10px solid blue;
+
 }
+    th{
+        border: 1px solid black;
+    }
+    td{
+
+
+    }
+    a{
+        color: black;
+    }
+
+
+caption{
+    caption-side: top;
+}
+.search{
+    position: fixed;
+    right: 20px;
+    margin: 80px auto;
+}
+.sorting{
+    position: fixed;
+    right: 20px;
+    margin: 40px auto;
+
+}
+#paging{
+
+    margin: auto;
+    text-align: center;
+}
+.adding{
+    position: fixed;
+    right: 20px;
+    margin: 110px auto;
+
+}
+

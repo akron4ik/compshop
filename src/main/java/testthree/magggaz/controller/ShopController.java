@@ -2,7 +2,6 @@ package testthree.magggaz.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import testthree.magggaz.model.Part;
@@ -15,8 +14,8 @@ import java.util.*;
 public class ShopController {
 
     private PartService partService = new PartServiceImpl();
-    private int page;
-    private int sort;
+    private int page;//номера страниц
+    private int sort;//вариант сортировки
 
 
     @Autowired
@@ -28,35 +27,37 @@ public class ShopController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView allDetails(@RequestParam(defaultValue = "1") int page){
         this.page = page;
-        List<Part> absolAllParts = partService.absolutAllParts(page, 1);
-        int count = partService.countOfComp();
-        int partsCount = partService.partsCount(1);
-        int pageCount = (partsCount + 9)/10;
-        List<Part> sortParts = partService.sorting(absolAllParts, 1);
+        List<Part> AllPartsOnPage = partService.absolutAllParts(page, 1);//список всех запчастей на странице
+        int countOfComps = partService.countOfComp();//количество компов, которые можно собрать
+        int partsCount = partService.partsCount(1);//количество всех запчастей
+        int pageCount = (partsCount + 9)/10;//количесто страниц
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("parts");
+        modelAndView.setViewName("parts");//название страницы
         modelAndView.addObject("page",page);
-        modelAndView.addObject("countOf", count);
+        modelAndView.addObject("countOf", countOfComps);
         modelAndView.addObject("partsCount", partsCount);
         modelAndView.addObject("pagesCount", pageCount);
-        modelAndView.addObject("sortParts", sortParts);
+        modelAndView.addObject("AllPartsOnPage", AllPartsOnPage);
         return modelAndView;
     }
 
     @RequestMapping(value = "/sort", method = RequestMethod.GET)
     public ModelAndView sortDetails(@RequestParam(defaultValue = "1") int page, @RequestParam(name = "sort") int sort){
         this.sort = sort;
-        ModelAndView modelAndView = new ModelAndView();
         List<Part> all = partService.absolutAllParts(page, this.sort);
         int partCount = partService.partsCount(this.sort);
-        int pagCount = (partCount + 9)/10;
-        List<Part> soPa = partService.sorting(all,this.sort);
+        int pageCount = (partCount + 9)/10;
+        int countOfcomps = partService.countOfComp();
+        List<Part> sortingParts = partService.sorting(all,this.sort);
+
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("sorting");
         modelAndView.addObject("sort",this.sort);
         modelAndView.addObject("pages", page);
         modelAndView.addObject("partCount", partCount);
-        modelAndView.addObject("pagCount", pagCount);
-        modelAndView.addObject("soPa", soPa);
+        modelAndView.addObject("pageCount", pageCount);
+        modelAndView.addObject("sortingParts", sortingParts);
+        modelAndView.addObject("countOfcomps", countOfcomps);
         return modelAndView;
     }
 
